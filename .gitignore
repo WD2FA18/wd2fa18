@@ -1,0 +1,13 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Cloud9 IDE - http://c9.io
+.c9revisions
+.c9
