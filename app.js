@@ -19,8 +19,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Get the original path, before using router
+app.use(function (req, res, next) {
+  req.originalPath = req.path;
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/products', productsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

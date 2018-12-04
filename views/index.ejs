@@ -19,22 +19,18 @@
       <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-          <div class="col-md-4">
-            <h2>Guitars</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="/products" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Basses</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="/products" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Drums</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="/products" role="button">View details &raquo;</a></p>
-          </div>
-        </div>
+          <% for(let product of products) { %>
+            <div class="col-md-6 col-lg-4">
+              <h2><%=product.productName.substring(0, 20)%></h2>
+              <img class="img-fluid mr-2 img-thumbnail rounded float-left" src="/images/<%=product.categoryName%>.png" alt="<%=product.categoryName%>">
+              <p><%=product.description.substring(0, 125)%> ... <a href="/products/view/<%=product.productID%>">More &raquo;</a></p>
+            </div>
+          <% } %>
+          
+    
+    
+    
+          
 
         <hr>
 

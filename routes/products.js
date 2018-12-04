@@ -4,7 +4,6 @@ const asyncHandler = require('express-async-handler');
 const Models = require('../sequelize');
 /* GET users listing. */
 router.get('/', asyncHandler(async (req, res, next) => {
-  console.log(req.Url);
   const products = await Models.products.findAll({
     attributes: [
       'productName',
@@ -22,7 +21,7 @@ router.get('/', asyncHandler(async (req, res, next) => {
   res.render('products/products', { 
       title: 'Product Categories',
       metaDescription: 'Guitar Shop Products',
-      menuPath: req.path,
+      menuPath: req.originalPath,
       products: tableRS(products)
   });
 }));
@@ -32,7 +31,7 @@ router.get('/categories', asyncHandler(async (req, res, next) => {
   res.render('products/categories', {
     title: 'Products Categories',
     metaDescription: 'Guitar Shop Product Categories',
-    menuPath: req.path,
+    menuPath: req.originalPath,
     categories: tableRS(categories)
   });
 }));
