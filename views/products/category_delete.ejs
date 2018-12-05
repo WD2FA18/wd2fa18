@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <% include ../includes/headerStuff %>
+</head>
+<body>
+  <% include ../includes/pageHeader %>
+  <!-- Main Content Goes Here -->
+  <main role="main" class="container">
+    <div class="starter">
+      <h2>Delete <%=category.categoryName%>?</h2>
+      <form method="post" action="/products/categories/delete/<%=category.categoryID%>">
+        <button type="submit" class="btn btn-primary">Delete <%=category.categoryName%>!</button>
+        <a href="/products/categories" class="btn btn-primary">Cancel</a>
+      </form>
+    </div>
+  </main>
+<% include ../includes/pageFooter %>
+<% include ../includes/footerStuff %>
+</body>
+</html>

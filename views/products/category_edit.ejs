@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <% include ../includes/headerStuff %>
+</head>
+<body>
+  <% include ../includes/pageHeader %>
+  <!-- Main Content Goes Here -->
+  <main role="main" class="container">
+    <div class="starter">
+      <h2>Edit <%=category.categoryName%></h2>
+      <form method="post" action="/products/categories/edit/<%=category.categoryID%>">
+        <div class="form-group">
+          <label for="categoryID">ID</label>
+          <input type="text" readonly="READONLY" value="<%=category.categoryID%>" class="form-control" id="categoryID" name="categoryID">
+        </div>
+        <div class="form-group">
+          <label for="categoryName">Name</label>
+          <input type="text" value="<%=category.categoryName%>" class="form-control" id="categoryName" name="categoryName">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </main>
+<% include ../includes/pageFooter %>
+<% include ../includes/footerStuff %>
+</body>
+</html>
