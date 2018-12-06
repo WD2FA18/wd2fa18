@@ -8,15 +8,15 @@
           <li class="nav-item <%=(menuPath === '/'?'active':'')%>">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <li class="nav-item dropdown <%=(menuPath.startsWith('/products')?'active':'')%>">
-            <a class="nav-link dropdown-toggle" href="/products" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="/products">Products Table</a>
-              <a class="dropdown-item" href="/products/categories">Categories Table</a>
-            </div>
-          </li>
           <li class="nav-item <%=(menuPath === '/about'?'active':'')%>">
             <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item dropdown <%=(menuPath.startsWith('/admin')?'active':'')%>">
+            <a class="nav-link dropdown-toggle" href="/admin" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="/admin/products">Products Table</a>
+              <a class="dropdown-item" href="/admin/categories">Categories Table</a>
+            </div>
           </li>
       </div>
     </nav>

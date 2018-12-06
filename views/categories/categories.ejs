@@ -7,9 +7,9 @@
   <% include ../includes/pageHeader %>
   <!-- Main Content Goes Here -->
   <div class="starter">
-    <% if(flash) { %>
-      <div class="alert <%=flash.flashType%> alert-dismissible fade show" role="alert">
-        <%=flash.flashMessage%>
+    <% if(flashMessage) { %>
+      <div class="alert <%=flashType%> alert-dismissible fade show" role="alert">
+        <%=flashMessage%>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -34,15 +34,15 @@
             <td><%=category.categoryName%></td>
             <td><%=category.createdAt%></td>
             <td><%=category.updatedAt%></td>
-            <td><a href="/products/categories/edit/<%=category.categoryID%>">edit</a></td>
-            <td><a href="/products/categories/delete/<%=category.categoryID%>">delete</a></td>
+            <td><a href="<%=menuPath%>/edit/<%=category.categoryID%>">edit</a></td>
+            <td><a href="<%=menuPath%>/delete/<%=category.categoryID%>">delete</a></td>
           </tr>
         <% } %>
       </tbody>
     </table>
     
     <h2>Add Category</h2>
-    <form method="post" action="/products/categories/add">
+    <form method="post" action="<%=menuPath%>/add">
       <div class="form-group">
         <label for="categoryName">Category Name</label>
         <input type="text" class="form-control" id="categoryName" name="categoryName">

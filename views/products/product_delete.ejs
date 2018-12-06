@@ -8,15 +8,12 @@
   <!-- Main Content Goes Here -->
   <main role="main" class="container">
     <div class="starter">
-      <% if (product === null) { %>
-        <h1>That product does not exist!</h1>
-      <% } else { %>
-        <h1><%=product.productName%></h1>
-        <p class="lead"><%=product.description%></p>
-        <a href="#" class="btn btn-primary">Buy it for $<%=product.listPrice%></a>
-      <% } %>
+      <h2>Delete <%=product.productName%>?</h2>
+      <form method="post" action="<%=menuPath%>/delete/<%=product.productID%>">
+        <button type="submit" class="btn btn-primary">Delete <%=product.productName%>!</button>
+        <a href="<%=menuPath%>" class="btn btn-primary">Cancel</a>
+      </form>
     </div>
-
   </main>
 <% include ../includes/pageFooter %>
 <% include ../includes/footerStuff %>

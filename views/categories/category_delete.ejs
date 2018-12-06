@@ -9,9 +9,9 @@
   <main role="main" class="container">
     <div class="starter">
       <h2>Delete <%=category.categoryName%>?</h2>
-      <form method="post" action="/products/categories/delete/<%=category.categoryID%>">
+      <form method="post" action="<%=menuPath%>/delete/<%=category.categoryID%>">
         <button type="submit" class="btn btn-primary">Delete <%=category.categoryName%>!</button>
-        <a href="/products/categories" class="btn btn-primary">Cancel</a>
+        <a href="<%=menuPath%>" class="btn btn-primary">Cancel</a>
       </form>
     </div>
   </main>

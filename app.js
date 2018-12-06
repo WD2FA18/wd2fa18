@@ -3,9 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
+var flash = require('connect-flash');
 
 var indexRouter = require('./routes/index');
 var productsRouter = require('./routes/products');
+var categoriesRouter = require('./routes/categories');
 
 var app = express();
 
@@ -17,16 +20,20 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// Need sessions to use connect-flash
+app.use(session({
+  secret: 'foobar',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { cookie: { maxAge: 60000 }}
+}));
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Get the original path, before using router
-app.use(function (req, res, next) {
-  req.originalPath = req.path;
-  next();
-});
-
+// Setup our Router Mountpoints
 app.use('/', indexRouter);
-app.use('/products', productsRouter);
+app.use('/admin/products', productsRouter);
+app.use('/admin/categories', categoriesRouter);
 
 
 // catch 404 and forward to error handler

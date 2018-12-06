@@ -25,15 +25,38 @@ router.get('/', asyncHandler(async (req, res, next) => {
   res.render('index', {
     title: 'Home',
     metaDescription: 'Guitar Shop',
-    menuPath: req.originalPath,
+    menuPath: req.baseUrl,
     products: products,
+  });
+}));
+
+/* GET - View a Single Product */
+router.get('/products/view/:productID', asyncHandler(async (req, res, next) => {
+  // Get a product from the DB based on the Path Parameter
+  const product = await Models.products.findOne({
+    where: {
+      productID: req.params.productID
+    },
+    raw: true,
+    include: [{
+        attributes: [],
+        model: Models.categories,
+        as: 'categories',
+    }]
+  });
+  // Render the EJS View
+  res.render('product_view', {
+    title: (product)?product.productName:'Does Not Exist',
+    metaDescription: 'Guitar Shop Products',
+    menuPath: req.baseUrl,
+    product: product
   });
 }));
 
 router.get('/about', asyncHandler(async (req, res, next) => {
   res.render('about', { title: 'About',
                         metaDescription: 'Guitar Shop About Page',
-                        menuPath: req.originalPath});
+                        menuPath: req.baseUrl});
                         
 }));
 module.exports = router;

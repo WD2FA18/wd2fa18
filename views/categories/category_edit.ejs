@@ -9,7 +9,7 @@
   <main role="main" class="container">
     <div class="starter">
       <h2>Edit <%=category.categoryName%></h2>
-      <form method="post" action="/products/categories/edit/<%=category.categoryID%>">
+      <form method="post" action="<%=menuPath%>/edit/<%=category.categoryID%>">
         <div class="form-group">
           <label for="categoryID">ID</label>
           <input type="text" readonly="READONLY" value="<%=category.categoryID%>" class="form-control" id="categoryID" name="categoryID">
