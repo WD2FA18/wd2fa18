@@ -5,7 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var flash = require('connect-flash');
+var passport = require('passport');
 
+var passportLocal = require('./passport');
 var indexRouter = require('./routes/index');
 var productsRouter = require('./routes/products');
 var categoriesRouter = require('./routes/categories');
@@ -27,8 +29,22 @@ app.use(session({
   saveUninitialized: true,
   cookie: { cookie: { maxAge: 60000 }}
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
+passportLocal(passport);
+
+
+// Add some useful info globally to ALL views
+app.use(function(req, res, next) {
+  // Load Authentication Status
+  app.locals.loggedIn = req.isAuthenticated();
+  // Load User Info
+  app.locals.userInfo = (req.session.passport)?req.session.passport.user:null;
+  next();
+});
+
 
 // Setup our Router Mountpoints
 app.use('/', indexRouter);

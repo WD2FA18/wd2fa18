@@ -2,6 +2,8 @@ const Sequelize = require('sequelize');
 // Bring in the categories model
 const categoryModel = require('./models/categories');
 const productsModel = require('./models/products');
+const usersModel = require('./models/users');
+
 const sequelize = new Sequelize({
   host: 'localhost',
   database: 'guitar_shop',
@@ -27,8 +29,10 @@ sequelize.sync({alter: true})
 .then(() => {
   console.log('Database & Tables Created Successfully!');
 });
+const users = usersModel(sequelize, Sequelize);
 
 module.exports = {
   categories,
   products,
+  users,
 };

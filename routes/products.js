@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 const asyncHandler = require('express-async-handler');
 const Models = require('../sequelize');
-
+const redirectIfNotAdmin = require('../authentication.js').redirectIfNotAdmin;
+// Apply function to all categories routes
+router.use(redirectIfNotAdmin);
 /* GET - Products Home Page */
 router.get('/', asyncHandler(async (req, res, next) => {
   // Get all products

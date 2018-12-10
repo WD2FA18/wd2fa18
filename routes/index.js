@@ -1,8 +1,12 @@
 var express = require('express');
 var router = express.Router();
+const passport = require('passport');
 const asyncHandler = require('express-async-handler');
 // Bring in our DB Models
 const Models = require('../sequelize');
+// Add authentication function
+const redirectIfLoggedIn = require('../authentication.js').redirectIfLoggedIn;
+
 
 /* GET home page. */
 router.get('/', asyncHandler(async (req, res, next) => {
@@ -27,6 +31,8 @@ router.get('/', asyncHandler(async (req, res, next) => {
     metaDescription: 'Guitar Shop',
     menuPath: req.baseUrl,
     products: products,
+    flashMessage: req.flash('message'),
+    flashType: req.flash('type')
   });
 }));
 
@@ -59,4 +65,57 @@ router.get('/about', asyncHandler(async (req, res, next) => {
                         menuPath: req.baseUrl});
                         
 }));
+
+// Signup Page
+router.get('/signup', redirectIfLoggedIn, asyncHandler(async (req, res, next) => {
+  res.render('signup', { title: 'Sign Up',
+                        metaDescription: 'Guitar Shop SignUp Page',
+                        menuPath: req.baseUrl});
+}));
+
+router.post('/signup', redirectIfLoggedIn, asyncHandler(async (req, res, next) => {
+  const origPassword = req.body.userPassword;
+  // Encrypt the Password
+  req.body.userPassword = Models.users.generateHash(req.body.userPassword);
+  console.log(origPassword);
+  console.log(req.body.userPassword);
+  // Add the user to the DB
+  const user = await Models.users.create(req.body);
+  // Change password back to plaintext for authentication
+  req.body.userPassword = origPassword;
+  // Login the new user and send them to /
+  passport.authenticate('local')(req, res, function () {
+    // Setup our flash message
+    req.flash('message', `${user.dataValues.userFirstName} ${user.dataValues.userLastName} your Account was Created Successfully`);
+    req.flash('type', 'alert-success');
+    
+    res.redirect('/');
+  });
+}));
+
+// Login Page
+router.get('/login', redirectIfLoggedIn, asyncHandler(async (req, res, next) => {
+  res.render('login', { title: 'Login',
+                        metaDescription: 'Guitar Shop Login Page',
+                        menuPath: req.baseUrl,
+                        flashMessage: req.flash('loginMessage')
+  });
+}));
+
+router.post('/login', redirectIfLoggedIn, passport.authenticate('local',
+  {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+  }
+));
+
+// Logout
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+
+
 module.exports = router;
